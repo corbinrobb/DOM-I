@@ -118,7 +118,8 @@ nav.appendChild(navItem);
 nav.prepend(navItem2);
 
 // Change nav color to green
-Array.from(nav.children).forEach(navEl => navEl.style.color = 'green');
+const navChildren = Array.from(nav.children);
+navChildren.forEach(navEl => navEl.style.color = 'green');
 
 // Assign .cta JSON content
 cta.h1.innerHTML = siteContent.cta.h1.split(' ').join(' <br> ');
@@ -155,3 +156,19 @@ contact.email.textContent = siteContent.contact["email"];
 
 // Assign footer JSON content
 footer.textContent = siteContent.footer.copyright;
+
+
+
+// Change colors on elements on button click
+const changeH1ToRandomColor = () => {
+   const randomColor = `rgb(${Math.floor(Math.random() * 250)}, ${Math.floor(Math.random() * 250)}, ${Math.floor(Math.random() * 250)})`;
+   const randomColor2 = `rgb(${Math.floor(Math.random() * 250)}, ${Math.floor(Math.random() * 250)}, ${Math.floor(Math.random() * 250)})`;
+   const body = document.querySelector('body');
+   body.style.color = randomColor;
+   body.style.backgroundColor = randomColor2;
+   cta.button.style.color = randomColor;
+   cta.button.style.backgroundColor = randomColor2;
+   navChildren.forEach(navEl => navEl.style.color = randomColor);
+}
+
+cta.button.addEventListener('click', changeH1ToRandomColor);
