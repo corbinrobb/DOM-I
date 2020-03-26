@@ -41,6 +41,18 @@ const siteContent = {
 let logo = document.getElementById("logo-img");
 logo.setAttribute('src', siteContent["nav"]["img-src"])
 
+// Create new nav items and assign content
+const navItem = document.createElement('a');
+navItem.textContent = 'End';
+navItem.setAttribute('href', '');
+
+const navItem2 = document.createElement('a');
+navItem2.textContent = 'Start';
+navItem2.setAttribute('href', '');
+
+// Select nav
+const nav = document.querySelector('nav');
+
 // Select anchors in nav
 const navAnchors = Array.from(document.querySelectorAll('nav a'));
 
@@ -94,11 +106,22 @@ const contact = {
 const footer = document.querySelector('footer p');
 
 
+
+
 // Assign Nav anchors JSON content
-navAnchors.forEach((navEl, index) => navEl.textContent = siteContent.nav[`nav-item-${index + 1}`]);
+navAnchors.forEach((navEl, index) => { 
+  navEl.textContent = siteContent.nav[`nav-item-${index + 1}`];
+});
+
+// Append and prepend additional anchors
+nav.appendChild(navItem);
+nav.prepend(navItem2);
+
+// Change nav color to green
+Array.from(nav.children).forEach(navEl => navEl.style.color = 'green');
 
 // Assign .cta JSON content
-cta.h1.textContent = siteContent.cta.h1;
+cta.h1.innerHTML = siteContent.cta.h1.split(' ').join(' <br> ');
 cta.button.textContent = siteContent.cta.button;
 cta.img.setAttribute('src', siteContent.cta["img-src"]);
 
@@ -126,7 +149,7 @@ mainContent.bottom.vision.p.textContent = siteContent["main-content"]["vision-co
 
 // Assign .contact JSON content
 contact.h4.textContent = siteContent.contact["contact-h4"];
-contact.address.textContent = siteContent.contact["address"];
+contact.address.innerHTML = siteContent.contact["address"].split('t ').join('t<br>');
 contact.phone.textContent = siteContent.contact["phone"];
 contact.email.textContent = siteContent.contact["email"];
 
