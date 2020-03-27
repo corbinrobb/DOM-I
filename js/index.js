@@ -63,36 +63,47 @@ const cta = {
   img: document.querySelector('#cta-img')
 };
 
+
+// ******************BEFORE REFACTORING**************************
+// const mainContent = {
+//   top: {
+//     features: {
+//       h4: document.querySelector('.top-content div:first-child h4'),
+//       p: document.querySelector('.top-content div:first-child p')
+//     },
+//     about: {
+//       h4: document.querySelector('.top-content div:last-child h4'),
+//       p: document.querySelector('.top-content div:last-child p')
+//     }
+//   },
+//   middle: {
+//     img: document.querySelector('#middle-img')
+//   },
+//   bottom: {
+//     services: {
+//       h4: document.querySelector('.bottom-content div:nth-child(1) h4'),
+//       p: document.querySelector('.bottom-content div:nth-child(1) p')
+//     },
+//     product: {
+//       h4: document.querySelector('.bottom-content div:nth-child(2) h4'),
+//       p: document.querySelector('.bottom-content div:nth-child(2) p')
+//     },
+//     vision: {
+//       h4: document.querySelector('.bottom-content div:nth-child(3) h4'),
+//       p: document.querySelector('.bottom-content div:nth-child(3) p')
+//     }
+//   }
+// };
+// ******************BEFORE REFACTORING**************************
+
 // Select descendant elements of main-content
-const mainContent = {
-  top: {
-    features: {
-      h4: document.querySelector('.top-content div:first-child h4'),
-      p: document.querySelector('.top-content div:first-child p')
-    },
-    about: {
-      h4: document.querySelector('.top-content div:last-child h4'),
-      p: document.querySelector('.top-content div:last-child p')
-    }
-  },
-  middle: {
-    img: document.querySelector('#middle-img')
-  },
-  bottom: {
-    services: {
-      h4: document.querySelector('.bottom-content div:nth-child(1) h4'),
-      p: document.querySelector('.bottom-content div:nth-child(1) p')
-    },
-    product: {
-      h4: document.querySelector('.bottom-content div:nth-child(2) h4'),
-      p: document.querySelector('.bottom-content div:nth-child(2) p')
-    },
-    vision: {
-      h4: document.querySelector('.bottom-content div:nth-child(3) h4'),
-      p: document.querySelector('.bottom-content div:nth-child(3) p')
-    }
-  }
-};
+const mainContent = [
+  Array.from(document.querySelectorAll(".top-content .text-content > *")),
+  document.querySelector('#middle-img'),
+  Array.from(document.querySelectorAll(".bottom-content .text-content > *"))
+].flat();
+
+
 
 // Select children of .contact
 const contact = {
@@ -126,27 +137,35 @@ cta.h1.innerHTML = siteContent.cta.h1.split(' ').join(' <br> ');
 cta.button.textContent = siteContent.cta.button;
 cta.img.setAttribute('src', siteContent.cta["img-src"]);
 
-
+// ******************BEFORE REFACTORING**************************
 // Assign .main-content .top-content JSON content
-mainContent.top.features.h4.textContent = siteContent["main-content"]["features-h4"];
-mainContent.top.features.p.textContent = siteContent["main-content"]["features-content"];
+// mainContent.top.features.h4.textContent = siteContent["main-content"]["features-h4"];
+// mainContent.top.features.p.textContent = siteContent["main-content"]["features-content"];
 
-mainContent.top.about.h4.textContent = siteContent["main-content"]["about-h4"];
-mainContent.top.about.p.textContent = siteContent["main-content"]["about-content"];
+// mainContent.top.about.h4.textContent = siteContent["main-content"]["about-h4"];
+// mainContent.top.about.p.textContent = siteContent["main-content"]["about-content"];
 
 
-// Assign .main-content .middle-content JSON content
-mainContent.middle.img.setAttribute('src', siteContent["main-content"]["middle-img-src"]);
+// // Assign .main-content .middle-content JSON content
+// mainContent.middle.img.setAttribute('src', siteContent["main-content"]["middle-img-src"]);
 
-// Assign .main-content .bottom-content JSON content
-mainContent.bottom.services.h4.textContent = siteContent["main-content"]["services-h4"];
-mainContent.bottom.services.p.textContent = siteContent["main-content"]["services-content"];
+// // Assign .main-content .bottom-content JSON content
+// mainContent.bottom.services.h4.textContent = siteContent["main-content"]["services-h4"];
+// mainContent.bottom.services.p.textContent = siteContent["main-content"]["services-content"];
 
-mainContent.bottom.product.h4.textContent = siteContent["main-content"]["product-h4"];
-mainContent.bottom.product.p.textContent = siteContent["main-content"]["product-content"];
+// mainContent.bottom.product.h4.textContent = siteContent["main-content"]["product-h4"];
+// mainContent.bottom.product.p.textContent = siteContent["main-content"]["product-content"];
 
-mainContent.bottom.vision.h4.textContent = siteContent["main-content"]["vision-h4"];
-mainContent.bottom.vision.p.textContent = siteContent["main-content"]["vision-content"];
+// mainContent.bottom.vision.h4.textContent = siteContent["main-content"]["vision-h4"];
+// mainContent.bottom.vision.p.textContent = siteContent["main-content"]["vision-content"];
+// ******************BEFORE REFACTORING**************************
+
+// Assign .main-content
+const siteContentMain = Object.values(siteContent['main-content']);
+mainContent.forEach((e, i) => {
+  return (i === 4) ? e.setAttribute('src', siteContentMain[i]) : e.textContent = siteContentMain[i];
+});
+
 
 // Assign .contact JSON content
 contact.h4.textContent = siteContent.contact["contact-h4"];
